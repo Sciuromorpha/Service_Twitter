@@ -1,0 +1,1 @@
+from sciuromorpha_core.static import *
