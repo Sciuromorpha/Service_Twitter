@@ -3,7 +3,7 @@ name = "sciuromorpha-service-twitter"
 version = "0.1.0"
 description = ""
 authors = ["Whale Mo <ncwhale@gmail.com>"]
-readme = "README.readme.md"
+readme = "README.md"
 packages = [{include = "sciuromorpha_service_twitter", from = "src"}]
 
 [tool.poetry.dependencies]
