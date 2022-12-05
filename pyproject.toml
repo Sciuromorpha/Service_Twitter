@@ -8,6 +8,8 @@ packages = [{include = "sciuromorpha_service_twitter", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+eventlet = "^0.33.2"
+nameko = "^2.14.1"
 
 
 [build-system]
