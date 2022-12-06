@@ -10,6 +10,7 @@ packages = [{include = "sciuromorpha_service_twitter", from = "src"}]
 python = "^3.10"
 eventlet = "^0.33.2"
 nameko = "^2.14.1"
+tweepy = "^4.12.1"
 
 
 [build-system]
