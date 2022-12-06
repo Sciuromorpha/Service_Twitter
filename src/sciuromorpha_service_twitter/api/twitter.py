@@ -14,7 +14,6 @@ class Twitter:
     _service_path = None
 
     @property
-    @classmethod
     def service_path(cls) -> str:
         if Twitter._storage_config is None:
             with ClusterRpcProxy(config) as cluster_rpc:
@@ -42,5 +41,5 @@ class Twitter:
         pass
 
     @rpc
-    def download_media(self, meta:dict)->dict:
+    def download_media(self, meta: dict) -> dict:
         pass
