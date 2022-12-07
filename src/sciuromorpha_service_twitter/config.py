@@ -5,3 +5,5 @@ from nameko.constants import AMQP_URI_CONFIG_KEY
 config = {
     AMQP_URI_CONFIG_KEY: core_config[S.CONFIG_SECTION_MESSAGEQUEUE]["url"]
 }
+
+twitter = core_config[S.CONFIG_SECTION_TWITTER]
