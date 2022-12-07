@@ -24,7 +24,6 @@ class Twitter:
 
     @classmethod
     @property
-    @cache
     def service_path(cls) -> str:
         return cls.storage_config["service_path"]
 
