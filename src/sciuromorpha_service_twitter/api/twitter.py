@@ -3,27 +3,30 @@ from nameko.rpc import rpc, RpcProxy
 from nameko.events import event_handler, BROADCAST, SERVICE_POOL
 from nameko.standalone.rpc import ClusterRpcProxy
 from sciuromorpha_service_twitter.config import config
-
+from functools import cached_property, cache
 
 class Twitter:
     name = "twitter"
 
+    meta_rpc = RpcProxy("meta")
     storage_rpc = RpcProxy("storage")
 
-    _storage_config = None
-    _service_path = None
-
+    @classmethod
     @property
+    @cache
+    def storage_config(cls) -> dict:
+        with ClusterRpcProxy(config) as cluster_rpc:
+            storage_config = cluster_rpc.storage.get_service_path(
+                {"name": cls.name}
+            )
+        
+        return storage_config
+
+    @classmethod
+    @property
+    @cache
     def service_path(cls) -> str:
-        if Twitter._storage_config is None:
-            with ClusterRpcProxy(config) as cluster_rpc:
-                Twitter._storage_config = cluster_rpc.storage.get_service_path(
-                    {"name": Twitter.name}
-                )
-
-                Twitter._service_path = Twitter._storage_config["service_path"]
-
-        return Twitter._service_path
+        return cls.storage_config["service_path"]
 
     @event_handler("meta", "create", handler_type=SERVICE_POOL)
     @event_handler("meta", "merge", handler_type=SERVICE_POOL)
@@ -38,7 +41,7 @@ class Twitter:
 
     @rpc
     def fetch(self, meta: dict) -> dict:
-        pass
+        print(Twitter.service_path)
 
     @rpc
     def download_media(self, meta: dict) -> dict:
