@@ -1,9 +1,10 @@
 from sciuromorpha_core import static as S
+from functools import cached_property, cache
 from nameko.rpc import rpc, RpcProxy
 from nameko.events import event_handler, BROADCAST, SERVICE_POOL
 from nameko.standalone.rpc import ClusterRpcProxy
 from sciuromorpha_service_twitter.config import config
-from functools import cached_property, cache
+
 
 class Twitter:
     name = "twitter"
@@ -16,10 +17,8 @@ class Twitter:
     @cache
     def storage_config(cls) -> dict:
         with ClusterRpcProxy(config) as cluster_rpc:
-            storage_config = cluster_rpc.storage.get_service_path(
-                {"name": cls.name}
-            )
-        
+            storage_config = cluster_rpc.storage.get_service_path({"name": cls.name})
+
         return storage_config
 
     @classmethod
@@ -40,7 +39,7 @@ class Twitter:
 
     @rpc
     def fetch(self, meta: dict) -> dict:
-        print(Twitter.service_path)
+        pass
 
     @rpc
     def download_media(self, meta: dict) -> dict:
