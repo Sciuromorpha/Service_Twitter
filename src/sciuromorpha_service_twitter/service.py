@@ -8,12 +8,12 @@ import signal
 import errno
 from nameko.runners import ServiceRunner
 
-from .config import config
+from .config import amqp_config
 from .api.twitter import Twitter
 
 
 def create_runner() -> ServiceRunner:
-    runner = ServiceRunner(config=config)
+    runner = ServiceRunner(config=amqp_config)
     runner.add_service(Twitter)
 
     return runner
